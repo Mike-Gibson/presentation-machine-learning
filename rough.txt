@@ -1,0 +1,44 @@
+machine learning
+
+means
+ - finding patterns
+ - recognising them when they appear again
+ - use patterns to predict the future
+
+
+(contains patterns)     (finds patterns)               (recognises patterns)
+data                 -> Machine Learning Algorithm  -> Model                 
+                                                         /\
+                                                Application - provides data to model
+
+Process
+ - choose the right question to ask
+ - do you have the right data?
+ - how will you measure success?
+
+two types:
+ - supervised and unsupervised
+
+supervised means the training data contains the value you want to predict
+unsupervised means the value you want to predict is not in the training data.
+
+get data from data sources and preprocess to clean and shape data, to prepare it for training the model
+training data has features (columns) and target value (column representing the value we want to predict)
+
+categorising problems
+most common
+ - regression
+   - have data, want to find a line through the data points in order to estimate - supervised
+
+ - classification
+   - have data, want to know what class a new data point will be in, e.g. is this credit card txn fraudulent? (yes/no) - supervised. Normally get back %age of probability.
+
+ - clustering
+   - have data, want to find clusters in data - used in unsupervised learning. e.g. what are our customer segments?
+
+styles
+ - decision tree
+ - neural network
+ - bayesian
+ - k-means
+ - loads more - very complicated!
