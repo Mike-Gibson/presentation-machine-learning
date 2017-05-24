@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>Security 1</title>
+		<title>Machine Learning</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -93,6 +93,30 @@
                 opacity: 1;
                 transform: none;
             }
+
+			ol.diagram > li {
+				display: inline-block; text-align:center
+			}
+
+			ol.diagram > li > img {
+				border: 0; background: none; box-shadow: none; max-width: 100px;
+			}
+
+			ol.diagram > li.arrow {
+				display: inline-block; text-align:center; vertical-align: 160%;
+				margin: 0 -20px;
+			}
+
+			ol.diagram > li.arrow > img {
+				max-width: 40px;
+			}
+
+			.reveal .slides section img.plain {
+				border: 0; background: none; box-shadow: none;
+				transition: all 0s;
+			}
+			
+
 		</style>
 	
 		<div class="reveal">
@@ -100,334 +124,239 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>Web Application Security</h1>
-					<h2 style="margin-left: -260px;">
-						<span class="sub-header">Part 1</span>
-						<span class="sub-header-separator"> | </span>
-						XSS and CSRF
-					</h2>
+					<h1>Machine Learning</h1>
 				</section>
 
 				<section>
 					<section>
 						<h2>
-							<span class="sub-header">1.0 </span>
-							<span class="sub-header-separator"> | </span>
-							XSS
+							Definition
 						</h2>
 						
-						<blockquote>
-							&ldquo;Cross-Site Scripting (XSS) attacks are a type of injection, in which malicious
-							scripts are injected into otherwise benign and trusted web sites.&rdquo;
-							<br/>OWASP
+						<blockquote class="fragment">
+							&ldquo;Gives computers the ability to learn without being explicitly programmed.&rdquo;
 						</blockquote>
+
+						<blockquote class="fragment">
+							&ldquo;explores the study and construction of algorithms that can learn from and make predictions on data&rdquo;
+						</blockquote>
+						
 					</section>
 					
 					<section>
 						<h2>
-							<span class="sub-header">1.1 </span>
-							<span class="sub-header-separator"> | </span>
-							Types of XSS
+							High Level
 						</h2>
 						
-						<ol>
+						<ol class="diagram">
 							<li class="fragment">
-								<span>Server XSS</span>
-								<br/>
-								<small>Data comes directly from the server onto the page</small>
+								<strong>Data</strong>
+								<br />
+								<img src="custom/database.png">
+								<br />
+								<small>(contains patterns)</small>
+							</li>
+
+							<li class="fragment arrow">
+								<img src="custom/arrow-right.png">
 							</li>
 							
 							<li class="fragment">
-								<span>Client XSS</span>
-								<br/>
-								<small>Data comes from JavaScript which has manipulated the page</small>
+								<strong>Machine <br />Learning <br />Algorithm</strong>
+								<br />
+								<img src="custom/algorithm.png">
+								<br />
+								<small>(finds patterns)</small>
+							</li>
+
+							<li class="fragment arrow">
+								<img src="custom/arrow-right.png">
+							</li>
+
+							<li class="fragment">
+								<strong>Model</strong>
+								<br />
+								<img src="custom/model.png">
+								<br />
+								<small>(recognises patterns)</small>
+							</li>
+
+							<li class="fragment arrow">
+								<img src="custom/arrow-left.png">
+							</li>
+
+							<li class="fragment">
+								<strong>Application</strong>
+								<br />
+								<img src="custom/application.png">
+								<br />
+								<small>(provides data to model)</small>
 							</li>
 						</ol>
 					</section>
-					
+
 					<section>
 						<h2>
-							<span class="sub-header">1.2 </span>
-							<span class="sub-header-separator"> | </span>
-							Demo
+							Process
 						</h2>
 						
-						<p>
-							<a href="http://unnamed-bookstore.com:62331/" target="_blank">Bookstore</a>
-						</p>
+						<ol class="diagram">
+							<li class="fragment">
+								<strong>Choose the <br /> right question <br />to ask</strong>
+								<br />
+								<img src="custom/question.png">
+							</li>
+
+							<li class="fragment arrow">
+								<img src="custom/arrow-right.png">
+							</li>
+							
+							<li class="fragment">
+								<strong>Check you have <br />the right data</strong>
+								<br />
+								<img src="custom/database.png">
+							</li>
+
+							<li class="fragment arrow">
+								<img src="custom/arrow-right.png">
+							</li>
+
+							<li class="fragment">
+								<strong>Ensure you know how <br /> to measure success</strong>
+								<br />
+								<img src="custom/chart.png">
+							</li>
+						</ol>
 					</section>
-					
+
 					<section>
 						<h2>
-							<span class="sub-header">1.3 </span>
-							<span class="sub-header-separator"> | </span>
-							Scripts
-						</h2>
-						
-						<pre class="fragment hide-after"><code class="hljs" data-trim contenteditable>
-<h1>
-  I love this book
-</h1>
-						</code></pre>
-						
-						<pre class="fragment hide-after"><code class="hljs" data-trim contenteditable>
-<h1 style="font-size: 3em; color: red;">
-  <marquee scrollamount="20">I REALLY love this book</marquee>
-</h1>
-						</code></pre>
-
-                        <pre class="fragment hide-after"><code class="hljs" data-trim contenteditable>
-<style>
-    div.navbar {
-        background-color: red;
-    }
-</style>
-
-Red navbar
-						</code></pre>
-
-						<pre class="fragment hide-after"><code class="hljs" data-trim contenteditable>
-&lt;script&gt;
-  document.getElementsByTagName('img')[0].src =                     'http://s.quickmeme.com/img/b1/b136b23a3922791ba4cf862e11360f1c8ae3df0f09b8c9ccd57589dc089835d2.jpg';
-&lt;/script&gt;
-
-CATS!
-						</code></pre>
-						
-						<pre class="fragment"><code class="hljs" data-trim contenteditable>
-&lt;script&gt;
-  var cookies = document.cookie;
-  
-  console.log(cookies);
-  alert('Found cookies: \r\n' + cookies + '\r\nNow I could post this value to some other server...');
-&lt;/script&gt;
-
-Yummy cookies
-						</code></pre>
-					</section>
-					
-                    <section>
-						<h2>
-							<span class="sub-header">1.4 </span>
-							<span class="sub-header-separator"> | </span>
-							Implications
+							Types of Machine Learning
 						</h2>
 						
 						<ul>
-							<li class="fragment">
-								Allows HTML to be rendered, overriding styles
+							<li class="fragment" style="margin-bottom: 5%">
+								<strong>Supervised</strong>
+								<br />
+								<span>
+									The training data contains the value you want to predict
+								</span>
 							</li>
+
 							<li class="fragment">
-								Website can be defaced
-							</li>
-							<li class="fragment">
-								Could leave website vulnerable to session hijacking
-							</li>
-                            <li class="fragment">
-								Exposes users of your site to browser/application exploits 
+								<strong>Unsupervised</strong>
+								<br />
+								<span>
+									The training data doesn't contain the value you want to predict
+								</span>
 							</li>
 						</ul>
-                        
 					</section>
-                    
+
 					<section>
 						<h2>
-							<span class="sub-header">1.5 </span>
-							<span class="sub-header-separator"> | </span>
-							Prevention
+							Categorising Problems
+						</h2>
+
+						<ul style="list-style: none">
+							<li class="fragment hide-after">
+								<strong>Regression</strong>
+								<br />
+								<img src="custom/regression.png" width="100%">
+								<span style="display: none">
+									The training data contains the value you want to predict, and you want to find a line through the data points in order to estimate. Supervised.
+								</span>
+							</li>
+
+							<li class="fragment hide-after">
+								<strong>Classification</strong>
+								<br />
+								<img src="custom/classification.jpg" width="100%">
+								<span style="display: none">
+									The training data contains the value you want to predict, and you want to find which class a new data point will be in. Supervised.
+								</span>
+							</li>
+
+							<li class="fragment" width="100%">
+								<strong>Clustering</strong>
+								<br />
+								<img src="custom/clustering.png">
+								<span style="display: none">
+									have data, want to find clusters in data - used in unsupervised learning. e.g. what are our customer segments?
+								</span>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>
+							Algorithm styles
 						</h2>
 						
-						<ol>
-							<li class="fragment">
-								Sanitize markup if HTML input is required
+						<ul>
+							<li class="fragment" style="margin-bottom: 5%">
+								<strong>Decision trees</strong>
 							</li>
-							<li class="fragment">
-								Encode all untrusted output
-								<ul>
-									<li>Don't encode output yourself - use a library!</li>
-								</ul>
+							<li class="fragment" style="margin-bottom: 5%">
+								<strong>Neural networks</strong>
 							</li>
-							<li class="fragment">
-								For &ldquo;<em>defense-in-depth</em>&rdquo;
-								<ul>
-									<li class="fragment">Content-Security-Policy</li>
-									<li class="fragment">Correct content-types</li>
-									<li class="fragment">X-XSS-Protection header</li>
-									<li class="fragment">Marking cookies as HTTP only</li>
-								</ul>
+							<li class="fragment" style="margin-bottom: 5%">
+								<strong>Bayesian</strong>
 							</li>
-						</ol>
-						
-						<div class="fragment" style="font-size: 0.75em; text-align: left;">
-							<span>Useful links</span>
-							<br />
-							<a href="https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet" target="_blank">OWASP XSS prevention cheat sheet</a>
-							<br/>
-							<a href="https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet" target="_blank">OWASP XSS evasion cheat sheet</a>
-						</div>
-						
-						  <!-- http://lockmedown.com/preventing-xss-in-asp-net-made-easy/ -->
+							<li class="fragment" style="margin-bottom: 5%">
+								<strong>K-means</strong>
+							</li>
+							<li class="fragment" style="margin-bottom: 5%">
+								<strong>...and lots more</strong>
+							</li>
+						</ul>
 					</section>
 					
+					
 				</section>
-
-
-                <!--      -->
-                <!-- CSRF -->
-                <!--      -->
 
 
                 <section>
 					
                     <section>
 						<h2>
-							<span class="sub-header">2.0 </span>
-							<span class="sub-header-separator"> | </span>
-							CSRF
+							Creating a supervised model
 						</h2>
-						
-						<blockquote>
-							&ldquo;Cross-Site Request Forgery (CSRF) is an attack that forces 
-                            an end user to execute unwanted actions on a web application in which 
-                            they're currently authenticated.&rdquo;
-							<br/>OWASP
-						</blockquote>
+
+						<img src="custom/grid-empty.png" class="fragment hide-after plain">
+						<img src="custom/grid-features.png" class="fragment hide-after plain">
+						<img src="custom/grid-target.png" class="fragment hide-after plain">
+						<img src="custom/grid-sample.png" class="fragment hide-after plain">
+
 					</section>
 					
-                    <section>
-						<h2>
-							<span class="sub-header">2.1 </span>
-							<span class="sub-header-separator"> | </span>
-							Demo
-						</h2>
-						
-						<p class="fragment slide-up">
-                            <a href="http://win-lots-of-money.com:62331/Jackpot" target="_blank">
-                                <img src="custom/csrf email.jpg" style="border: 0"></img>
-							</a>
-						</p>
-					</section>
-                    
                      <section>
 						<h2>
-							<span class="sub-header">2.2 </span>
-							<span class="sub-header-separator"> | </span>
-							A Closer Look
+							Azure ML
 						</h2>
 						
-                        <pre style="font-size: 0.6em" ><code class="hljs" data-trim>
-...
-<h1>Thanks for your click!</h1>
-<p>But unfortunately, you haven't actually won anything.</p>
-
-<form action="http://unnamed-bookstore.com:62331/Home/Review" 
-  method="POST">
-    <input type="hidden" name="review" 
-    
-    
-value="I THOUGHT I HAD WON THE JACKPOT, BUT I WAS WRONG! :(">
-</form>
-
-<script>
-    window.onload = function () {
-        document.forms[0].submit();
-    }
-</script>
-                        </code></pre>
-						
+						<a href="https://europewest.studio.azureml.net/home" target="_blank">
+							Azure Machine Learning Studio
+						</a>
 					</section>
                     
                     <section>
 						<h2>
-							<span class="sub-header">2.3.1 </span>
-							<span class="sub-header-separator"> | </span>
-							Prevention
+							Microsoft Machine Learning Cheat Sheet
 						</h2>
 
-                        <h3>Things that <strong style="text-decoration:underline">DON'T</strong> work</h3>
+                        <a href="https://docs.microsoft.com/en-us/azure/machine-learning/machine-learning-algorithm-cheat-sheet" target="_blank">
+							Open Cheat Sheet
+                        </a>
 						
-						<ol>
-							<li class="fragment">
-                                Using a secret cookie
-                                <small>
-                                    As the request is from the victim's browser, all cookies will be sent with the request. This is how the
-                                    attack works in the first place - by tricking the browser into making the request with the 
-                                    authentication/session token.
-                                </small>
-							</li>
-                            <li class="fragment">
-                                Only accepting POST/PUT requests
-                                <small>
-                                    As we've seen - this does not stop a CSRF attack. JavaScript and forms can be used to make all
-                                    types of requests to the server.
-                                </small>
-							</li>
-                            <li class="fragment">
-                                Multi-step transactions
-                                <small>
-                                    This can be deduced by an attacker, so it does not prevent against CSRF.
-                                </small>
-							</li>
-						</ol>
 					</section>
                     
-                    <section>
-						<h2>
-							<span class="sub-header">2.3.2 </span>
-							<span class="sub-header-separator"> | </span>
-							Prevention
-						</h2>
-
-                        <h3>Use the &ldquo;Synchronizer Token Pattern&rdquo;</h3>
-						
-						<ol>
-							<li class="fragment">
-                                The server generates a secure random token (CSRF token) which is:
-                                <ul>
-                                    <li>Unique per user & per user session</li>
-                                    <li>A large random value</li>
-                                    <li>Generated by a cryptographically secure random number generator</li>
-                                </ul>
-							</li>
-                            <li class="fragment">
-                                This CSRF token is included as a hidden field for all forms
-							</li>
-                            <li class="fragment">
-                                The server can then reject the requested action if the CSRF token fails validation
-							</li>
-						</ol>
-					</section>
-                    
-                    <section>
-						<h2>
-							<span class="sub-header">2.3.3 </span>
-							<span class="sub-header-separator"> | </span>
-							Prevention
-						</h2>
-
-                        <h3>Variants</h3>
-						
-						<ol>
-							<li class="fragment">
-                                Double Submit Cookies
-							</li>
-                            <li class="fragment">
-                                Encrypted Token Pattern
-							</li>
-						</ol>
-                        
-                        <div class="fragment" style="font-size: 0.75em; text-align: left;">
-							<span>Useful links</span>
-							<br />
-							<a href="https://www.owasp.org/index.php/CSRF_Prevention_Cheat_Sheet" target="_blank">OWASP CSRF prevention cheat sheet</a>
-						</div>
-					</section>
-					                    
 				</section>
 
 				<section style="text-align: left;">
 					<h1>The End</h1>
 					
+					<span>Any (straight forward) questions?</span>
 				</section>
 
 			</div>
